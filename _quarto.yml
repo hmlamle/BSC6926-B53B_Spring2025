@@ -6,12 +6,12 @@ website:
   title: "BSC6926-B53B Spring 2025"
   navbar:
     left:
-    # - text: "Syllabus"
-    #   href: sylb.html
+    - text: "Syllabus"
+      href: sylb.html
     - text: "Computer setup"
       href: comp.html
-    # - text: "Useful functions"
-    #   href: usefulfx.html  
+    - text: "Useful functions"
+      href: usefulfx.html
     # - text: 'WS 1'
     #   href: ws1.qmd
     # - text: 'WS 2'
