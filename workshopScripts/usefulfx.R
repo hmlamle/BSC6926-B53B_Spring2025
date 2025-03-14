@@ -61,11 +61,19 @@ fish$zcatch2
 
 
 ## nesting data
-# One benefit of `tibbles` is that they can contain list columns. This means that we can make columns of `tibbles` that are nested within a dataset. Nesting creates a list-column of data frames; unnesting flattens it back out into regular columns. Nesting is a implicitly summarising operation: you get one row for each group defined by the non-nested columns. This is useful in conjunction with other summaries that work with whole datasets, most notably models. This can be done with the `nest()` and then flattened with `unnest()`
+# One benefit of `tibbles` is that they can contain list columns. 
+#This means that we can make columns of `tibbles` that are nested within a dataset. 
+#Nesting creates a list-column of data frames; unnesting flattens it back out 
+#into regular columns. Nesting is a implicitly summarising operation: you get one 
+#row for each group defined by the non-nested columns. This is useful in conjunction 
+#with other summaries that work with whole datasets, most notably models. This can 
+#be done with the `nest()` and then flattened with `unnest()`
 
 fish = tibble(species = rep(c('Salmon', 'Cod'),times = 3),
               year = rep(c(1999,2005,2020), each = 2),
               catch = c(50, 60, 40, 50, 60, 100))
+
+# organize the list by column - Rolo
 
 # using group_by
 fish_nest = fish |> 
@@ -74,6 +82,12 @@ fish_nest = fish |>
 
 fish_nest
 fish_nest$data
+fish_nest$data[[1]] # not sure what the double brackets is about: this and below function produces same tibble
+fish_nest$data[1]
+
+# if using a list column tibble not limit to size of objects stored in list, 
+# which can be problematic if you're trying to view it. Get into situations that 
+# are problematic. 
 
 # using .by in nest
 # column name becomes data unless you change .key
@@ -81,7 +95,7 @@ fish_nest2 = fish |>
   nest(.by = year, .key = 'df')
 
 fish_nest2
-fish_nest2$df
+fish_nest2$df #this opens all of the tibbles in the list
 
 # ## map
 # ### `purr`
@@ -91,6 +105,7 @@ fish_nest2$df
 # + `map_int()` makes an integer vector.
 # + `map_dbl()` makes a double vector.
 # + `map_chr()` makes a character vector.
+
 
 df = iris  |> 
   select(-Species)
@@ -103,6 +118,9 @@ d = tibble(species = rep(c('Salmon', 'Cod'),times = 3),
            catch = c(50, 60, 40, 50, 60, 100)) |> 
   nest(.by = species) |> 
   mutate(correlation = map(data, \(data) cor.test(data$year, data$catch)))
+# map syntax: output is list, \(data) is what's being used I think, and then what 
+# function you want to do within it 
+
 
 d
 d$correlation
@@ -113,7 +131,11 @@ d = d |>
          p = map_dbl(correlation, \(x) x$p.value))
 
 d
-# Sometimes, there are multiple arguments required for the function you are mapping. You can provide two lists (or columns) using `map2()`. If you have more than two lists needed, you can use `pmap()`. These functions work the same as `map()` based on the desired output. 
+
+# Sometimes, there are multiple arguments required for the function you are mapping. 
+# You can provide two lists (or columns) using `map2()`. If you have more than two 
+# lists needed, you can use `pmap()`. These functions work the same as `map()` 
+# based on the desired output. 
 
 library(performance)
 # using map2 and pmap
@@ -123,7 +145,7 @@ df = iris  |>
          pl = map(data, \(data) lm(Sepal.Length ~ Petal.Length, data = data)),
          mod_c = map2(sw,pl, \(sw,pl) compare_performance(sw,pl)),
          top = map_chr(mod_c, \(x) x$Name[which.min(x$AICc)]),
-         sum_top = pmap(list(sw,pl,top), \(x,y,z) 
+         sum_top = pmap(list(sw,pl,top), \(x,y,z)  # summary of the model object. 
                         if (z == 'sw'){
                           summary(x)
                         }else{
@@ -133,3 +155,5 @@ df = iris  |>
 
 df
 
+# it's okay to not grasp this all the way right now (lol). We'll walk thorugh 
+# it next in the "workshop1.R" file. >>>
