@@ -112,6 +112,7 @@ d = d |>
   mutate(r = map_dbl(correlation, \(x) x$estimate),
          p = map_dbl(correlation, \(x) x$p.value))
 
+d
 # Sometimes, there are multiple arguments required for the function you are mapping. You can provide two lists (or columns) using `map2()`. If you have more than two lists needed, you can use `pmap()`. These functions work the same as `map()` based on the desired output. 
 
 library(performance)

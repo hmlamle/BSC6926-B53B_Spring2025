@@ -29,6 +29,7 @@ df_before = df |>
   select(trophic_level, temp_preference, generation_time)|> 
   mutate(across(trophic_level:generation_time, scale))
 
+df_before
 
 ### Building hypervolumes
 # With a nested dataset of our columns that we want to build hypervolumes for we can use `mutate()` and `map()` to generate the hypervolume. 
@@ -74,6 +75,27 @@ df$hv
 
 hvj = hypervolume_join(df$hv[[1]], df$hv[[2]])
 
+#plot 3d
+plot(hvj, pairplot = T, colors=c('dodgerblue3','cyan2'),
+     show.3d=T,plot.3d.axes.id=NULL,
+     show.axes=TRUE, show.frame=TRUE,
+     show.random=T, show.density=TRUE,show.data=F,
+     show.legend=T, limits=c(-5,5), 
+     show.contour=F, contour.lwd= 2, 
+     contour.type='alphahull', 
+     contour.alphahull.alpha=0.25,
+     contour.ball.radius.factor=1, 
+     contour.kde.level=0.01,
+     contour.raster.resolution=100,
+     show.centroid=TRUE, cex.centroid=2,
+     point.alpha.min=0.2, point.dark.factor=0.5,
+     cex.random=0.5,cex.data=1,cex.axis=1.5,cex.names=2,cex.legend=2,
+     num.points.max.data = 100000, num.points.max.random = 200000, reshuffle=TRUE,
+     plot.function.additional=NULL,
+     verbose=FALSE
+)
+
+#plot biplot
 plot(hvj, pairplot = T, colors=c('dodgerblue3','cyan2'),
      show.3d=FALSE,plot.3d.axes.id=NULL,
      show.axes=TRUE, show.frame=TRUE,
@@ -188,6 +210,7 @@ df_tot = df_m |> slice(rep(1:n(), each=n))|>
   mutate(point = map2_dbl(mean,sd, \(mean,sd) rnorm(1,mean =mean,sd =sd))) |> 
   group_by(period, trait) |> 
   mutate(num = row_number()) |>
+  ungroup() |> 
   select(-mean, -sd)|>
   pivot_wider(names_from = trait, values_from = point)|> 
   select(-num) |> 

@@ -16,13 +16,13 @@ knitr::opts_chunk$set(collapse = T, cache = T)
 
 This workshop discusses working with community trait data by introducing the `hypervolume` package by going over how to prepare the data and how to build hypervolumes in multiple ways.\
 
-R script: [github](https://github.com/BSC6926-B52-Fall2023/workshopScripts/blob/main/workshop9.R)
+R script: [github](https://github.com/SeascapeEcologyLab-workshops/BSC6926-B53B_Spring2025/blob/main/workshopScripts/workshop1.R)
 
-[R script of workshop 9](workshopScripts/workshop9.R)
+[R script of workshop 1](workshopScripts/workshop1.R)
 
-[abundance data](https://github.com/BSC6926-B52-Fall2023/workshopScripts/blob/main/data/abundHermine.csv)
+[abundance data](https://raw.githubusercontent.com/SeascapeEcologyLab-workshops/BSC6926-B53B_Spring2025/refs/heads/main/data/abundHermine.csv)
 
-[trait data](https://github.com/BSC6926-B52-Fall2023/workshopScripts/blob/main/data/fishTraits.csv)
+[trait data](https://raw.githubusercontent.com/SeascapeEcologyLab-workshops/BSC6926-B53B_Spring2025/refs/heads/main/data/fishTraits.csv)
 
 ## Hypervolumes 
 Hypervolumes are a multidimensional tool that is based on Hutchinson's *n*-dimensional niche concept and we can build them with the `hypervolume` package. 
@@ -51,6 +51,8 @@ df_before = df |>
   filter(period == 'Before') |> 
   select(trophic_level, temp_preference, generation_time)|> 
   mutate(across(trophic_level:generation_time, scale))
+
+df_before
 
 ```
 
@@ -224,6 +226,7 @@ df_tot = df_m |> slice(rep(1:n(), each=n))|>
       mutate(point = map2_dbl(mean,sd, \(mean,sd) rnorm(1,mean =mean,sd =sd))) |> 
       group_by(period, trait) |> 
       mutate(num = row_number()) |>
+      ungroup() |> 
       select(-mean, -sd)|>
       pivot_wider(names_from = trait, values_from = point)|> 
       select(-num) |> 

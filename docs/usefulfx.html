@@ -163,6 +163,10 @@ window.Quarto = {
     <a class="nav-link active" href="./usefulfx.html" aria-current="page"> 
 <span class="menu-text">Useful functions</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./ws1.html"> 
+<span class="menu-text">WS 1</span></a>
+  </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -212,6 +216,7 @@ window.Quarto = {
 
 
 <p>This script contains information about the functions used in the hypervolume scripts.</p>
+<p><a href="workshopScripts/usefulfx.R">R script of useful functions</a></p>
 <section id="mergejoin" class="level2">
 <h2 class="anchored" data-anchor-id="mergejoin">Merge/Join</h2>
 <p>If two data frames contain different columns of data, then they can be merged together with the family of join functions.</p>
@@ -292,7 +297,7 @@ window.Quarto = {
 </section>
 <section id="scaling-data" class="level2">
 <h2 class="anchored" data-anchor-id="scaling-data">scaling data</h2>
-<p>Because hypervolumes can be generated with any continuous data as an axes, many of the times the units are not combatible. Blonder et al.&nbsp;<a href="https://doi-org.ezproxy.fiu.edu/10.1111/geb.12146">2014</a> &amp; <a href="https://doi-org.ezproxy.fiu.edu/10.1111/2041-210X.12865">2018</a> to convert all of the axes into the same units. This can be done by taking the z-score of the values to convert units into standard deviations. Z-scoring data can be done with the formula: <span class="math display">\[ z = \frac{x_{i}-\overline{x}}{sd} \]</span> Where <span class="math inline">\(x_{i}\)</span> is a value, <span class="math inline">\(\overline{x}\)</span> is the mean, and <span class="math inline">\(sd\)</span> is the standard deviation. By z-scoring each axis, 0 is the mean of that axis, a value of 1 means that the value is 1 standard deviation above the global mean of that axis, and a value of -1 is 1 standard deviation below the global mean of the axis. In R this can be done manually or with the <code>scale()</code> function.</p>
+<p>Because hypervolumes can be generated with any continuous data as an axes, many of the times the units are not comparable. Blonder et al.&nbsp;<a href="https://doi-org.ezproxy.fiu.edu/10.1111/geb.12146">2014</a> &amp; <a href="https://doi-org.ezproxy.fiu.edu/10.1111/2041-210X.12865">2018</a> to convert all of the axes into the same units. This can be done by taking the z-score of the values to convert units into standard deviations. Z-scoring data can be done with the formula: <span class="math display">\[ z = \frac{x_{i}-\overline{x}}{sd} \]</span> Where <span class="math inline">\(x_{i}\)</span> is a value, <span class="math inline">\(\overline{x}\)</span> is the mean, and <span class="math inline">\(sd\)</span> is the standard deviation. By z-scoring each axis, 0 is the mean of that axis, a value of 1 means that the value is 1 standard deviation above the global mean of that axis, and a value of -1 is 1 standard deviation below the global mean of the axis. In R this can be done manually or with the <code>scale()</code> function.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>fish <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">species =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">'Salmon'</span>, <span class="st">'Cod'</span>),<span class="at">times =</span> <span class="dv">3</span>),</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">year =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">1999</span>,<span class="dv">2005</span>,<span class="dv">2020</span>), <span class="at">each =</span> <span class="dv">2</span>),</span>
@@ -454,7 +459,14 @@ window.Quarto = {
 <span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a><span class="co"># extract information from list</span></span>
 <span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>d <span class="ot">=</span> d <span class="sc">|&gt;</span> </span>
 <span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">r =</span> <span class="fu">map_dbl</span>(correlation, \(x) x<span class="sc">$</span>estimate),</span>
-<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>         <span class="at">p =</span> <span class="fu">map_dbl</span>(correlation, \(x) x<span class="sc">$</span>p.value))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>         <span class="at">p =</span> <span class="fu">map_dbl</span>(correlation, \(x) x<span class="sc">$</span>p.value))</span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>d</span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 2 × 5</span></span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a><span class="do">##   species data             correlation     r     p</span></span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;   &lt;list&gt;           &lt;list&gt;      &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 Salmon  &lt;tibble [3 × 2]&gt; &lt;htest&gt;     0.693 0.512</span></span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 Cod     &lt;tibble [3 × 2]&gt; &lt;htest&gt;     0.891 0.300</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Sometimes, there are multiple arguments required for the function you are mapping. You can provide two lists (or columns) using <code>map2()</code>. If you have more than two lists needed, you can use <code>pmap()</code>. These functions work the same as <code>map()</code> based on the desired output.</p>
 <div class="cell">

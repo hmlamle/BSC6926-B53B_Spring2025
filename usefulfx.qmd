@@ -12,6 +12,8 @@ knitr::opts_chunk$set(collapse = T, cache = T)
 
 This script contains information about the functions used in the hypervolume scripts.  
 
+[R script of useful functions](workshopScripts/usefulfx.R)
+
 ## Merge/Join
 If two data frames contain different columns of data, then they can be merged together with the family of join functions.
 
@@ -52,7 +54,7 @@ left_join(fish, col, by = 'species')
 ```
 
 ## scaling data
-Because hypervolumes can be generated with any continuous data as an axes, many of the times the units are not combatible. Blonder et al. [2014](https://doi-org.ezproxy.fiu.edu/10.1111/geb.12146) & [2018](https://doi-org.ezproxy.fiu.edu/10.1111/2041-210X.12865) to convert all of the axes into the same units. This can be done by taking the z-score of the values to convert units into standard deviations. Z-scoring data can be done with the formula:
+Because hypervolumes can be generated with any continuous data as an axes, many of the times the units are not comparable. Blonder et al. [2014](https://doi-org.ezproxy.fiu.edu/10.1111/geb.12146) & [2018](https://doi-org.ezproxy.fiu.edu/10.1111/2041-210X.12865) to convert all of the axes into the same units. This can be done by taking the z-score of the values to convert units into standard deviations. Z-scoring data can be done with the formula:
 $$ z = \frac{x_{i}-\overline{x}}{sd} $$ Where $x_{i}$ is a value, $\overline{x}$ is the mean, and $sd$ is the standard deviation. By z-scoring each axis, 0 is the mean of that axis, a value of 1 means that the value is 1 standard deviation above the global mean of that axis, and a value of -1 is 1 standard deviation below the global mean of the axis. In R this can be done manually or with the `scale()` function. 
 
 ```{r}
@@ -127,6 +129,7 @@ d = d |>
   mutate(r = map_dbl(correlation, \(x) x$estimate),
          p = map_dbl(correlation, \(x) x$p.value))
 
+d
 ```
 
 Sometimes, there are multiple arguments required for the function you are mapping. You can provide two lists (or columns) using `map2()`. If you have more than two lists needed, you can use `pmap()`. These functions work the same as `map()` based on the desired output. 

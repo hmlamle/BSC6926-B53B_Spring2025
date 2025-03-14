@@ -136,6 +136,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="./usefulfx.html"> 
 <span class="menu-text">Useful functions</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./ws1.html" aria-current="page"> 
+<span class="menu-text">WS 1</span></a>
+  </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -203,10 +207,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="getting-to-know-the-basics">Getting to know the basics</h2>
 <p>This workshop discusses working with community trait data by introducing the <code>hypervolume</code> package by going over how to prepare the data and how to build hypervolumes in multiple ways.<br>
 </p>
-<p>R script: <a href="https://github.com/BSC6926-B52-Fall2023/workshopScripts/blob/main/workshop9.R">github</a></p>
-<p><a href="workshopScripts/workshop9.R">R script of workshop 9</a></p>
-<p><a href="https://github.com/BSC6926-B52-Fall2023/workshopScripts/blob/main/data/abundHermine.csv">abundance data</a></p>
-<p><a href="https://github.com/BSC6926-B52-Fall2023/workshopScripts/blob/main/data/fishTraits.csv">trait data</a></p>
+<p>R script: <a href="https://github.com/SeascapeEcologyLab-workshops/BSC6926-B53B_Spring2025/blob/main/workshopScripts/workshop1.R">github</a></p>
+<p><a href="workshopScripts/workshop1.R">R script of workshop 1</a></p>
+<p><a href="https://raw.githubusercontent.com/SeascapeEcologyLab-workshops/BSC6926-B53B_Spring2025/refs/heads/main/data/abundHermine.csv">abundance data</a></p>
+<p><a href="https://raw.githubusercontent.com/SeascapeEcologyLab-workshops/BSC6926-B53B_Spring2025/refs/heads/main/data/fishTraits.csv">trait data</a></p>
 </section>
 <section id="hypervolumes" class="level2">
 <h2 class="anchored" data-anchor-id="hypervolumes">Hypervolumes</h2>
@@ -247,7 +251,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df_before <span class="ot">=</span> df <span class="sc">|&gt;</span> </span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(period <span class="sc">==</span> <span class="st">'Before'</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(trophic_level, temp_preference, generation_time)<span class="sc">|&gt;</span> </span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(trophic_level<span class="sc">:</span>generation_time, scale))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(trophic_level<span class="sc">:</span>generation_time, scale))</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>df_before</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 23 × 3</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="do">##    trophic_level[,1] temp_preference[,1] generation_time[,1]</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="do">##                &lt;dbl&gt;               &lt;dbl&gt;               &lt;dbl&gt;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  1            -0.712             -0.569               -1.05 </span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  2            -1.00              -0.0696              -1.18 </span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  3            -0.567             -0.969               -0.769</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  4             0.947              1.43                 1.32 </span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  5            -0.207             -0.0696               1.32 </span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="do">##  6            -0.640              2.23                -0.446</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="do">##  7            -0.640              0.530                0.920</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="do">##  8             0.298             -0.569                0.437</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="do">##  9            -0.712             -0.569               -1.05 </span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="do">## 10            -1.00              -0.0696              -1.18 </span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="do">## # ℹ 13 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="building-hypervolumes" class="level3">
@@ -595,52 +615,53 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">point =</span> <span class="fu">map2_dbl</span>(mean,sd, \(mean,sd) <span class="fu">rnorm</span>(<span class="dv">1</span>,<span class="at">mean =</span>mean,<span class="at">sd =</span>sd))) <span class="sc">|&gt;</span> </span>
 <span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>      <span class="fu">group_by</span>(period, trait) <span class="sc">|&gt;</span> </span>
 <span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">num =</span> <span class="fu">row_number</span>()) <span class="sc">|&gt;</span></span>
-<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>      <span class="fu">select</span>(<span class="sc">-</span>mean, <span class="sc">-</span>sd)<span class="sc">|&gt;</span></span>
-<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>      <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> trait, <span class="at">values_from =</span> point)<span class="sc">|&gt;</span> </span>
-<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>      <span class="fu">select</span>(<span class="sc">-</span>num) <span class="sc">|&gt;</span> </span>
-<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="fu">across</span>(generation_time<span class="sc">:</span>trophic_level,scale)) <span class="sc">|&gt;</span> </span>
-<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>      <span class="fu">group_by</span>(period) <span class="sc">|&gt;</span> </span>
-<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>      <span class="fu">nest</span>()</span>
-<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ungroup</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>      <span class="fu">select</span>(<span class="sc">-</span>mean, <span class="sc">-</span>sd)<span class="sc">|&gt;</span></span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>      <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> trait, <span class="at">values_from =</span> point)<span class="sc">|&gt;</span> </span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>      <span class="fu">select</span>(<span class="sc">-</span>num) <span class="sc">|&gt;</span> </span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="fu">across</span>(generation_time<span class="sc">:</span>trophic_level,scale)) <span class="sc">|&gt;</span> </span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>      <span class="fu">group_by</span>(period) <span class="sc">|&gt;</span> </span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>      <span class="fu">nest</span>()</span>
 <span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a><span class="co"># generate hypervolumes</span></span>
-<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a>df_tot <span class="ot">=</span> df_tot <span class="sc">|&gt;</span> </span>
-<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">hv =</span> <span class="fu">map</span>(data, \(data) <span class="fu">hypervolume_gaussian</span>(data, <span class="at">name =</span> period,</span>
-<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>                                              <span class="at">samples.per.point =</span> <span class="dv">1000</span>,</span>
-<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>                                              <span class="at">kde.bandwidth =</span> <span class="fu">estimate_bandwidth</span>(data), </span>
-<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a>                                              <span class="at">sd.count =</span> <span class="dv">3</span>, </span>
-<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a>                                              <span class="at">quantile.requested =</span> <span class="fl">0.95</span>, </span>
-<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a>                                              <span class="at">quantile.requested.type =</span> <span class="st">"probability"</span>, </span>
-<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a>                                              <span class="at">chunk.size =</span> <span class="dv">1000</span>, </span>
-<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a>                                              <span class="at">verbose =</span> F)),</span>
-<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a>         <span class="at">hv_size =</span> <span class="fu">map_dbl</span>(hv, \(hv) <span class="fu">get_volume</span>(hv)))</span>
-<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a><span class="do">## Note that the formula used for the Silverman estimator differs in version 3 compared to prior versions of this package.</span></span>
-<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a><span class="do">## Use method='silverman-1d' to replicate prior behavior.</span></span>
-<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a><span class="do">## Note that the formula used for the Silverman estimator differs in version 3 compared to prior versions of this package.</span></span>
-<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a><span class="do">## Use method='silverman-1d' to replicate prior behavior.</span></span>
-<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a><span class="co"># generate hypervolumes</span></span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>df_tot <span class="ot">=</span> df_tot <span class="sc">|&gt;</span> </span>
+<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">hv =</span> <span class="fu">map</span>(data, \(data) <span class="fu">hypervolume_gaussian</span>(data, <span class="at">name =</span> period,</span>
+<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>                                              <span class="at">samples.per.point =</span> <span class="dv">1000</span>,</span>
+<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a>                                              <span class="at">kde.bandwidth =</span> <span class="fu">estimate_bandwidth</span>(data), </span>
+<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a>                                              <span class="at">sd.count =</span> <span class="dv">3</span>, </span>
+<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a>                                              <span class="at">quantile.requested =</span> <span class="fl">0.95</span>, </span>
+<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a>                                              <span class="at">quantile.requested.type =</span> <span class="st">"probability"</span>, </span>
+<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a>                                              <span class="at">chunk.size =</span> <span class="dv">1000</span>, </span>
+<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a>                                              <span class="at">verbose =</span> F)),</span>
+<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a>         <span class="at">hv_size =</span> <span class="fu">map_dbl</span>(hv, \(hv) <span class="fu">get_volume</span>(hv)))</span>
+<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a><span class="do">## Note that the formula used for the Silverman estimator differs in version 3 compared to prior versions of this package.</span></span>
+<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a><span class="do">## Use method='silverman-1d' to replicate prior behavior.</span></span>
+<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a><span class="do">## Note that the formula used for the Silverman estimator differs in version 3 compared to prior versions of this package.</span></span>
+<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a><span class="do">## Use method='silverman-1d' to replicate prior behavior.</span></span>
 <span id="cb9-55"><a href="#cb9-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a><span class="co">#plot</span></span>
-<span id="cb9-57"><a href="#cb9-57" aria-hidden="true" tabindex="-1"></a>hvj_tot <span class="ot">=</span> <span class="fu">hypervolume_join</span>(df_tot<span class="sc">$</span>hv[[<span class="dv">1</span>]], df_tot<span class="sc">$</span>hv[[<span class="dv">2</span>]])</span>
-<span id="cb9-58"><a href="#cb9-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-59"><a href="#cb9-59" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hvj_tot, <span class="at">pairplot =</span> T, <span class="at">colors=</span><span class="fu">c</span>(<span class="st">'dodgerblue3'</span>,<span class="st">'cyan2'</span>),</span>
-<span id="cb9-60"><a href="#cb9-60" aria-hidden="true" tabindex="-1"></a>     <span class="at">show.3d=</span><span class="cn">FALSE</span>,<span class="at">plot.3d.axes.id=</span><span class="cn">NULL</span>,</span>
-<span id="cb9-61"><a href="#cb9-61" aria-hidden="true" tabindex="-1"></a>     <span class="at">show.axes=</span><span class="cn">TRUE</span>, <span class="at">show.frame=</span><span class="cn">TRUE</span>,</span>
-<span id="cb9-62"><a href="#cb9-62" aria-hidden="true" tabindex="-1"></a>     <span class="at">show.random=</span>T, <span class="at">show.density=</span><span class="cn">TRUE</span>,<span class="at">show.data=</span>F,</span>
-<span id="cb9-63"><a href="#cb9-63" aria-hidden="true" tabindex="-1"></a>     <span class="at">show.legend=</span>T, <span class="at">limits=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>,<span class="dv">5</span>), </span>
-<span id="cb9-64"><a href="#cb9-64" aria-hidden="true" tabindex="-1"></a>     <span class="at">show.contour=</span>F, <span class="at">contour.lwd=</span> <span class="dv">2</span>, </span>
-<span id="cb9-65"><a href="#cb9-65" aria-hidden="true" tabindex="-1"></a>     <span class="at">contour.type=</span><span class="st">'alphahull'</span>, </span>
-<span id="cb9-66"><a href="#cb9-66" aria-hidden="true" tabindex="-1"></a>     <span class="at">contour.alphahull.alpha=</span><span class="fl">0.25</span>,</span>
-<span id="cb9-67"><a href="#cb9-67" aria-hidden="true" tabindex="-1"></a>     <span class="at">contour.ball.radius.factor=</span><span class="dv">1</span>, </span>
-<span id="cb9-68"><a href="#cb9-68" aria-hidden="true" tabindex="-1"></a>     <span class="at">contour.kde.level=</span><span class="fl">0.01</span>,</span>
-<span id="cb9-69"><a href="#cb9-69" aria-hidden="true" tabindex="-1"></a>     <span class="at">contour.raster.resolution=</span><span class="dv">100</span>,</span>
-<span id="cb9-70"><a href="#cb9-70" aria-hidden="true" tabindex="-1"></a>     <span class="at">show.centroid=</span><span class="cn">TRUE</span>, <span class="at">cex.centroid=</span><span class="dv">2</span>,</span>
-<span id="cb9-71"><a href="#cb9-71" aria-hidden="true" tabindex="-1"></a>     <span class="at">point.alpha.min=</span><span class="fl">0.2</span>, <span class="at">point.dark.factor=</span><span class="fl">0.5</span>,</span>
-<span id="cb9-72"><a href="#cb9-72" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex.random=</span><span class="fl">0.5</span>,<span class="at">cex.data=</span><span class="dv">1</span>,<span class="at">cex.axis=</span><span class="fl">1.5</span>,<span class="at">cex.names=</span><span class="dv">2</span>,<span class="at">cex.legend=</span><span class="dv">2</span>,</span>
-<span id="cb9-73"><a href="#cb9-73" aria-hidden="true" tabindex="-1"></a>     <span class="at">num.points.max.data =</span> <span class="dv">100000</span>, <span class="at">num.points.max.random =</span> <span class="dv">200000</span>, <span class="at">reshuffle=</span><span class="cn">TRUE</span>,</span>
-<span id="cb9-74"><a href="#cb9-74" aria-hidden="true" tabindex="-1"></a>     <span class="at">plot.function.additional=</span><span class="cn">NULL</span>,</span>
-<span id="cb9-75"><a href="#cb9-75" aria-hidden="true" tabindex="-1"></a>     <span class="at">verbose=</span><span class="cn">FALSE</span></span>
-<span id="cb9-76"><a href="#cb9-76" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-57"><a href="#cb9-57" aria-hidden="true" tabindex="-1"></a><span class="co">#plot</span></span>
+<span id="cb9-58"><a href="#cb9-58" aria-hidden="true" tabindex="-1"></a>hvj_tot <span class="ot">=</span> <span class="fu">hypervolume_join</span>(df_tot<span class="sc">$</span>hv[[<span class="dv">1</span>]], df_tot<span class="sc">$</span>hv[[<span class="dv">2</span>]])</span>
+<span id="cb9-59"><a href="#cb9-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-60"><a href="#cb9-60" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hvj_tot, <span class="at">pairplot =</span> T, <span class="at">colors=</span><span class="fu">c</span>(<span class="st">'dodgerblue3'</span>,<span class="st">'cyan2'</span>),</span>
+<span id="cb9-61"><a href="#cb9-61" aria-hidden="true" tabindex="-1"></a>     <span class="at">show.3d=</span><span class="cn">FALSE</span>,<span class="at">plot.3d.axes.id=</span><span class="cn">NULL</span>,</span>
+<span id="cb9-62"><a href="#cb9-62" aria-hidden="true" tabindex="-1"></a>     <span class="at">show.axes=</span><span class="cn">TRUE</span>, <span class="at">show.frame=</span><span class="cn">TRUE</span>,</span>
+<span id="cb9-63"><a href="#cb9-63" aria-hidden="true" tabindex="-1"></a>     <span class="at">show.random=</span>T, <span class="at">show.density=</span><span class="cn">TRUE</span>,<span class="at">show.data=</span>F,</span>
+<span id="cb9-64"><a href="#cb9-64" aria-hidden="true" tabindex="-1"></a>     <span class="at">show.legend=</span>T, <span class="at">limits=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>,<span class="dv">5</span>), </span>
+<span id="cb9-65"><a href="#cb9-65" aria-hidden="true" tabindex="-1"></a>     <span class="at">show.contour=</span>F, <span class="at">contour.lwd=</span> <span class="dv">2</span>, </span>
+<span id="cb9-66"><a href="#cb9-66" aria-hidden="true" tabindex="-1"></a>     <span class="at">contour.type=</span><span class="st">'alphahull'</span>, </span>
+<span id="cb9-67"><a href="#cb9-67" aria-hidden="true" tabindex="-1"></a>     <span class="at">contour.alphahull.alpha=</span><span class="fl">0.25</span>,</span>
+<span id="cb9-68"><a href="#cb9-68" aria-hidden="true" tabindex="-1"></a>     <span class="at">contour.ball.radius.factor=</span><span class="dv">1</span>, </span>
+<span id="cb9-69"><a href="#cb9-69" aria-hidden="true" tabindex="-1"></a>     <span class="at">contour.kde.level=</span><span class="fl">0.01</span>,</span>
+<span id="cb9-70"><a href="#cb9-70" aria-hidden="true" tabindex="-1"></a>     <span class="at">contour.raster.resolution=</span><span class="dv">100</span>,</span>
+<span id="cb9-71"><a href="#cb9-71" aria-hidden="true" tabindex="-1"></a>     <span class="at">show.centroid=</span><span class="cn">TRUE</span>, <span class="at">cex.centroid=</span><span class="dv">2</span>,</span>
+<span id="cb9-72"><a href="#cb9-72" aria-hidden="true" tabindex="-1"></a>     <span class="at">point.alpha.min=</span><span class="fl">0.2</span>, <span class="at">point.dark.factor=</span><span class="fl">0.5</span>,</span>
+<span id="cb9-73"><a href="#cb9-73" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex.random=</span><span class="fl">0.5</span>,<span class="at">cex.data=</span><span class="dv">1</span>,<span class="at">cex.axis=</span><span class="fl">1.5</span>,<span class="at">cex.names=</span><span class="dv">2</span>,<span class="at">cex.legend=</span><span class="dv">2</span>,</span>
+<span id="cb9-74"><a href="#cb9-74" aria-hidden="true" tabindex="-1"></a>     <span class="at">num.points.max.data =</span> <span class="dv">100000</span>, <span class="at">num.points.max.random =</span> <span class="dv">200000</span>, <span class="at">reshuffle=</span><span class="cn">TRUE</span>,</span>
+<span id="cb9-75"><a href="#cb9-75" aria-hidden="true" tabindex="-1"></a>     <span class="at">plot.function.additional=</span><span class="cn">NULL</span>,</span>
+<span id="cb9-76"><a href="#cb9-76" aria-hidden="true" tabindex="-1"></a>     <span class="at">verbose=</span><span class="cn">FALSE</span></span>
+<span id="cb9-77"><a href="#cb9-77" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -651,13 +672,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># centroid distance </span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hypervolume_distance</span>(df_tot<span class="sc">$</span>hv[[<span class="dv">1</span>]], df_tot<span class="sc">$</span>hv[[<span class="dv">2</span>]], <span class="at">type =</span> <span class="st">'centroid'</span>, <span class="at">check.memory=</span>F)</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.09437035</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.173522</span></span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co"># overlap </span></span>
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>hvset_tot <span class="ot">=</span> <span class="fu">hypervolume_set</span>(df_tot<span class="sc">$</span>hv[[<span class="dv">1</span>]], df_tot<span class="sc">$</span>hv[[<span class="dv">2</span>]], <span class="at">check.memory =</span> F)</span>
 <span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Choosing num.points.max=53958 (use a larger value for more accuracy.)</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="do">## Using minimum density of 250.203549</span></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Retaining 25684 points in hv1 and 24689 points in hv2.</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="do">## Using minimum density of 251.407651</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Retaining 25684 points in hv1 and 24089 points in hv2.</span></span>
 <span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Beginning ball queries... </span></span>
 <span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="do">## Building tree... </span></span>
@@ -675,7 +696,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a><span class="fu">hypervolume_overlap_statistics</span>(hvset_tot)</span>
 <span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a><span class="do">##       jaccard      sorensen frac_unique_1 frac_unique_2 </span></span>
-<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a><span class="do">##     0.5857395     0.7387588     0.2755412     0.2463653</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a><span class="do">##     0.5654774     0.7224345     0.2999922     0.2536543</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
