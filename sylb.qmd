@@ -63,7 +63,6 @@ Materials and links on R programming and statistical analyses helpful in learnin
 Lectures and R programming exercises will be part of each workshop session to introduce several topics on multidimensional and hypervolume-based niche analysis. The grade will be based on class participation (50%), manuscript contributions (25%), and final presentation (25%). 
 
 #### **Grading:** 
-The final grade will be composed of 2 assignments/tasks. These two assignments/tasks are: 1) Class participation (attendance and class exercises) and 2) R exercises homework.   
 
 **Class participation (Total 50 pts)** will count for 50% of your final grade. Class attendance, participation in paper/topic discussions, including asking and answering questions, insightful comments and suggestions, and helping peers.
 
