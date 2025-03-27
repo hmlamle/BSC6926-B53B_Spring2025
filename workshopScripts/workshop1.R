@@ -47,11 +47,38 @@ hv_before = hypervolume_gaussian(df_before, name = 'Before',
                                  verbose = F)                                   # takes longer to render, so keep to F
 
 hv_before
+plot(hv_before)
 # in the printed results: 
 # "kde.method silverman" is a way to measure kernel density estimation. Idk anything else about it
 # "sd.count: 3" is # of sd's which the edge of hte hypervolume should be evalated. 
 # just play around with these and see what is going on 
 
+
+# ------------------I am playing around and testing the different types of HV's here: 
+
+# ^ we saw gaussian above, which uses kernel density estimation to estimate trait space
+# this is box, which constructs a hyperrectangle (bounding box) around the data points
+
+hv_box_example = hypervolume_box(df_before, name = "before_box",
+                                 samples.per.point = 1000,
+                                 kde.bandwidth = estimate_bandwidth(df_before),
+                                 verbose = F)
+plot(hv_box_example)
+
+# okay, next is the svm, which is a learning algorithm that tries to encapsulate the points 
+# within a region rather than define it from the inside out like KDE 
+
+hv_svm_example = hypervolume_svm(df_before, name = "before_svm",
+                                 samples.per.point = 1000,
+                                 scale.factor = 1,
+                                 chunk.size = 1000,
+                                 verbose = F)
+plot(hv_svm_example, show.3d = FALSE)
+xlim <- c(-3, 3)
+ylim <- c(-3, 3)
+
+# -------------------------------------------------- and that was all! carry on. below code picks up
+# before the dashed lines above. 
 
 # This can also be done to multiple data sets at the same time with nest().
 # so in this code the HV's are outputted as list items in a new column "hv"
